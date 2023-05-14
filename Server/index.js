@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
+const request = require('request');
 const { PythonShell } = require('python-shell');
-const merge = require('deepmerge');
-
+const axios = require('axios');
 const app = express();
+const merge = require('deepmerge');
+const path = require('path'); // Add this line
 
 let shopifyoptions = {
   method: 'GET',
