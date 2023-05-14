@@ -4,4 +4,3 @@ matplotlib
 Keras
 Pillow
 scikit-learn
-cv2

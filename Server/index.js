@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const request = require('request');
-const { PythonShell } = require('python-shell');
 const axios = require('axios');
-const app = express();
+const { PythonShell } = require('python-shell');
 const merge = require('deepmerge');
+
+const app = express();
 
 let shopifyoptions = {
   method: 'GET',
@@ -40,9 +40,11 @@ function extract_next_page_url(link_header) {
   }
   return null;
 }
-app.get("/",(req,res)=>{
-    res.send("Welcome to NovaPixel");
+
+app.get("/", (req, res) => {
+  res.send("Welcome to NovaPixel");
 });
+
 app.post('/searchlogo', (req, res) => {
   let shopifyapidata = "";
   let pythondata = '';
@@ -51,8 +53,8 @@ app.post('/searchlogo', (req, res) => {
 
   axios(shopifyoptions)
     .then(function (response) {
-      const responseBody = response.data; // Get the response body from the axios response object
-      shopifyapidata=responseBody;
+      const responseBody = response.data;
+      shopifyapidata = responseBody;
 
       let next_page_url = extract_next_page_url(response.headers.link);
 
@@ -62,7 +64,7 @@ app.post('/searchlogo', (req, res) => {
             .get(next_page_url, shopifyoptions)
             .then(function (nextResponse) {
               const nextResponseBody = nextResponse.data;
-              shopifyapidata=merge(shopifyapidata,nextResponseBody);
+              shopifyapidata = merge(shopifyapidata, nextResponseBody);
 
               next_page_url = extract_next_page_url(nextResponse.headers.link);
               fetchNextPage();
@@ -72,23 +74,19 @@ app.post('/searchlogo', (req, res) => {
               res.status(500).send('Internal Server Error');
             });
         } else {
-          // All pages have been fetched, continue with the rest of the code
-          // ...
-
           const options = {
             mode: 'text',
             pythonOptions: ['-u'],
-            scriptPath: './NewProj',
             args: [JSON.stringify(inputimage)]
           };
 
-          const pyshell = new PythonShell('logo.py', options);
+          const pyshell = new PythonShell('./NewProj/logo.py', options);
 
           pyshell.send('Hello, Python!');
 
           pyshell.on('message', message => {
             pythondata = message;
-            myData.push(message); // append each message to output
+            myData.push(message);
             console.log(message);
           });
 
@@ -102,29 +100,21 @@ app.post('/searchlogo', (req, res) => {
               res.status(500).send('Internal Server Error');
             } else {
               console.log('Python script execution completed with code', code);
-              res.send({ shopifyData: shopifyapidata, pythonData: myData });
-
-              //res.send({"pythonData": myData });
+                           res.send({ shopifyData: shopifyapidata, pythonData: myData });
             }
-          
           });
         }
       }
-        fetchNextPage();
-      
-      })
 
+      fetchNextPage();
+    })
     .catch(function(error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
     });
 });
 
-
-
-
-//call common search model
-
+// Call common search model
 app.post('/search', (req, res) => {
   let shopifyapidata = "";
   let pythondata = '';
@@ -133,8 +123,8 @@ app.post('/search', (req, res) => {
 
   axios(shopifyoptions)
     .then(function (response) {
-      const responseBody = response.data; // Get the response body from the axios response object
-      shopifyapidata=responseBody;
+      const responseBody = response.data;
+      shopifyapidata = responseBody;
 
       let next_page_url = extract_next_page_url(response.headers.link);
 
@@ -144,7 +134,7 @@ app.post('/search', (req, res) => {
             .get(next_page_url, shopifyoptions)
             .then(function (nextResponse) {
               const nextResponseBody = nextResponse.data;
-              shopifyapidata=merge(shopifyapidata,nextResponseBody);
+              shopifyapidata = merge(shopifyapidata, nextResponseBody);
 
               next_page_url = extract_next_page_url(nextResponse.headers.link);
               fetchNextPage();
@@ -154,23 +144,19 @@ app.post('/search', (req, res) => {
               res.status(500).send('Internal Server Error');
             });
         } else {
-          // All pages have been fetched, continue with the rest of the code
-          // ...
-
           const options = {
             mode: 'text',
             pythonOptions: ['-u'],
-            scriptPath: './NewProj',
             args: [JSON.stringify(inputimage)]
           };
 
-          const pyshell = new PythonShell('InitialModel.py', options);
+          const pyshell = new PythonShell('./NewProj/InitialModel.py', options);
 
           pyshell.send('Hello, Python!');
 
           pyshell.on('message', message => {
             pythondata = message;
-            myData.push(message); // append each message to output
+            myData.push(message);
             console.log(message);
           });
 
@@ -185,25 +171,20 @@ app.post('/search', (req, res) => {
             } else {
               console.log('Python script execution completed with code', code);
               res.send({ shopifyData: shopifyapidata, pythonData: myData });
-
-              //res.send({"pythonData": myData });
             }
-          
           });
         }
       }
-        fetchNextPage();
-      
-      })
 
+      fetchNextPage();
+    })
     .catch(function(error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
     });
 });
 
-
-
-app.listen(3000, () => {
-  console.log("Server running at port 3000")
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server running at port 3000");
 });
+
