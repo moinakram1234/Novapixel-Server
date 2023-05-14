@@ -6,6 +6,7 @@ const axios = require('axios');
 const app = express();
 const merge = require('deepmerge');
 const path = require('path'); // Add this line
+const { exec } = require('child_process');
 
 let shopifyoptions = {
   method: 'GET',
@@ -76,26 +77,25 @@ app.post('/searchlogo', (req, res) => {
             });
         } else {
 
-           exec('pip install opencv-python', (error, stdout, stderr) => {
+        
+   exec('pip install opencv-python', (error, stdout, stderr) => {
   if (error) {
     console.error(`Error during pip install: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.error(`pip install stderr: ${stderr}`);
-    return;
-  }
-          const options = {
-            mode: 'text',
-            pythonOptions: ['-u'],
-            scriptPath: scriptPath,
-            args: [JSON.stringify(inputimage)]
-          };
+    // Handle the error appropriately
+  } else {
+    console.log('opencv-python installed successfully');
 
+    // Proceed with your existing code
+    const options = {
+      mode: 'text',
+      pythonOptions: ['-u'],
+      scriptPath: scriptPath,
+      args: [JSON.stringify(inputimage)]
+    };
 
-          const pyshell = new PythonShell('Logo.py', options);
-
-          pyshell.send('Hello, Python!');
+    const pyshell = new PythonShell('Logo.py', options);
+    // Rest of your code
+      pyshell.send('Hello, Python!');
 
           pyshell.on('message', message => {
             pythondata = message;
@@ -113,9 +113,12 @@ app.post('/searchlogo', (req, res) => {
               res.status(500).send('Internal Server Error');
             } else {
               console.log('Python script execution completed with code', code);
-                           res.send({ shopifyData: shopifyapidata, pythonData: myData });
+              res.send({ shopifyData: shopifyapidata, pythonData: myData });
             }
           });
+  
+  }
+});
         }
       }
 
@@ -158,27 +161,27 @@ app.post('/search', (req, res) => {
             });
         } else {
 
+
+
+// Install opencv-python
 exec('pip install opencv-python', (error, stdout, stderr) => {
   if (error) {
     console.error(`Error during pip install: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.error(`pip install stderr: ${stderr}`);
-    return;
-  }
-         const options = {
-            mode: 'text',
-            pythonOptions: ['-u'],
-            scriptPath: scriptPath,
-            args: [JSON.stringify(inputimage)]
-          };
+    // Handle the error appropriately
+  } else {
+    console.log('opencv-python installed successfully');
 
+    // Proceed with your existing code
+    const options = {
+      mode: 'text',
+      pythonOptions: ['-u'],
+      scriptPath: scriptPath,
+      args: [JSON.stringify(inputimage)]
+    };
 
-
-          const pyshell = new PythonShell('InitialModel.py', options);
-
-          pyshell.send('Hello, Python!');
+    const pyshell = new PythonShell('InitialModel.py', options);
+    // Rest of your code
+      pyshell.send('Hello, Python!');
 
           pyshell.on('message', message => {
             pythondata = message;
@@ -199,6 +202,9 @@ exec('pip install opencv-python', (error, stdout, stderr) => {
               res.send({ shopifyData: shopifyapidata, pythonData: myData });
             }
           });
+  
+  }
+});
         }
       }
 
