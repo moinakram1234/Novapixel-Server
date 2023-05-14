@@ -41,7 +41,7 @@ function extract_next_page_url(link_header) {
   }
   return null;
 }
-
+const scriptPath = path.join(__dirname, 'NewProj');
 app.get("/", (req, res) => {
   res.send("Welcome to NovaPixel");
 });
@@ -78,7 +78,7 @@ app.post('/searchlogo', (req, res) => {
           const options = {
             mode: 'text',
             pythonOptions: ['-u'],
-            scriptPath: './NewProj',
+            scriptPath: scriptPath,
             args: [JSON.stringify(inputimage)]
           };
 
@@ -150,7 +150,7 @@ app.post('/search', (req, res) => {
          const options = {
             mode: 'text',
             pythonOptions: ['-u'],
-            scriptPath: './NewProj',
+            scriptPath: scriptPath,
             args: [JSON.stringify(inputimage)]
           };
 
