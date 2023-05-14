@@ -77,7 +77,6 @@ app.post('/searchlogo', (req, res) => {
 
           const options = {
             mode: 'text',
-            pythonPath: 'C:/Users/moina/AppData/Local/Programs/Python/Python311/python.exe',
             pythonOptions: ['-u'],
             scriptPath: './NewProj',
             args: [JSON.stringify(inputimage)]
@@ -160,7 +159,6 @@ app.post('/search', (req, res) => {
 
           const options = {
             mode: 'text',
-            pythonPath: 'C:/Users/moina/AppData/Local/Programs/Python/Python311/python.exe',
             pythonOptions: ['-u'],
             scriptPath: './NewProj',
             args: [JSON.stringify(inputimage)]
