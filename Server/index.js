@@ -78,7 +78,7 @@ app.post('/searchlogo', (req, res) => {
         } else {
 
         
-   exec('pip install opencv-python sklearn', (error, stdout, stderr) => {
+   exec('pip install opencv-python sklearn matplotlib', (error, stdout, stderr) => {
   if (error) {
     console.error(`Error during pip install: ${error.message}`);
     // Handle the error appropriately
