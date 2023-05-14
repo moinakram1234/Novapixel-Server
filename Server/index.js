@@ -75,6 +75,16 @@ app.post('/searchlogo', (req, res) => {
               res.status(500).send('Internal Server Error');
             });
         } else {
+
+           exec('pip install opencv-python', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error during pip install: ${error.message}`);
+    return;
+  }
+  if (stderr) {
+    console.error(`pip install stderr: ${stderr}`);
+    return;
+  }
           const options = {
             mode: 'text',
             pythonOptions: ['-u'],
@@ -147,6 +157,16 @@ app.post('/search', (req, res) => {
               res.status(500).send('Internal Server Error');
             });
         } else {
+
+exec('pip install opencv-python', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error during pip install: ${error.message}`);
+    return;
+  }
+  if (stderr) {
+    console.error(`pip install stderr: ${stderr}`);
+    return;
+  }
          const options = {
             mode: 'text',
             pythonOptions: ['-u'],
