@@ -40,7 +40,9 @@ function extract_next_page_url(link_header) {
   }
   return null;
 }
-
+app.get("/",(req,res)=>{
+    res.send("Welcome to NovaPixel");
+});
 app.post('/searchlogo', (req, res) => {
   let shopifyapidata = "";
   let pythondata = '';
