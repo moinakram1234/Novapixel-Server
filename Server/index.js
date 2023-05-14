@@ -83,7 +83,7 @@ app.post('/searchlogo', (req, res) => {
           };
 
 
-          const pyshell = new PythonShell('logo.py', options);
+          const pyshell = new PythonShell('Logo.py', options);
 
           pyshell.send('Hello, Python!');
 
