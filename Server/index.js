@@ -75,12 +75,13 @@ app.post('/searchlogo', (req, res) => {
               res.status(500).send('Internal Server Error');
             });
         } else {
-        const options = {
-               mode: 'text',
-               pythonOptions: ['-u'],
-               scriptPath: path.join(__dirname, 'NewProj'), // Update the scriptPath
-               args: [JSON.stringify(inputimage)]
-                        };
+          const options = {
+            mode: 'text',
+            pythonOptions: ['-u'],
+            scriptPath: './NewProj',
+            args: [JSON.stringify(inputimage)]
+          };
+
 
           const pyshell = new PythonShell('logo.py', options);
 
@@ -147,11 +148,13 @@ app.post('/search', (req, res) => {
             });
         } else {
          const options = {
-                    mode: 'text',
-                    pythonOptions: ['-u'],
-                    scriptPath: path.join(__dirname, 'NewProj'), // Update the scriptPath
-                    args: [JSON.stringify(inputimage)]
-                          };
+            mode: 'text',
+            pythonOptions: ['-u'],
+            scriptPath: './NewProj',
+            args: [JSON.stringify(inputimage)]
+          };
+
+
 
           const pyshell = new PythonShell('InitialModel.py', options);
 
