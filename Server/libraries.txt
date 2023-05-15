@@ -1,9 +1,5 @@
 opencv-python
-json
-time
 numpy
-os
-csv
 scikit-learn
-sys
 requests
+matplotlib
