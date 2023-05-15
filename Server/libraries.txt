@@ -1,1 +1,9 @@
+json
+time
 opencv-python
+numpy
+os
+csv
+scikit-learn
+sys
+requests
