@@ -7,7 +7,7 @@ const app = express();
 const merge = require('deepmerge');
 const path = require('path'); // Add this line
 const { exec } = require('child_process');
-
+const fs = require('fs');
 let shopifyoptions = {
   method: 'GET',
   url: 'https://Novapixels.myshopify.com/admin/api/2023-01/products.json',
