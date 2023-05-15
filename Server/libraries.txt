@@ -1,5 +1,9 @@
 opencv-python
+glob
 numpy
-scikit-learn
-requests
 matplotlib
+keras
+PIL
+scikit-learn
+base64
+requests
