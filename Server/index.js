@@ -31,6 +31,34 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+// Read the file containing library names
+fs.readFile('libraries.txt', 'utf8', (err, data) => {
+  if (err) {
+    console.error(`Error reading file: ${err}`);
+    // Handle the error appropriately
+    return;
+  }
+
+  // Split the data into an array of library names
+  const libraryNames = data.split('\n').map(library => library.trim());
+
+  // Install each library using pip
+  libraryNames.forEach(library => {
+    const command = `pip install ${library}`;
+
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error during pip install: ${error.message}`);
+        // Handle the error appropriately
+      } else {
+        console.log(`${library} installed successfully`);
+        // Proceed with further actions
+      }
+    });
+  });
+});
+
 function extract_next_page_url(link_header) {
   const links = link_header.split(',');
   for (const link of links) {
@@ -78,12 +106,6 @@ app.post('/searchlogo', (req, res) => {
         } else {
 
         
-   exec('pip install opencv-python sklearn matplotlib', (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Error during pip install: ${error.message}`);
-    // Handle the error appropriately
-  } else {
-    console.log('opencv-python installed successfully');
 
     // Proceed with your existing code
     const options = {
@@ -117,8 +139,7 @@ app.post('/searchlogo', (req, res) => {
             }
           });
   
-  }
-});
+
         }
       }
 
@@ -164,12 +185,6 @@ app.post('/search', (req, res) => {
 
 
 // Install opencv-python
-exec('pip install opencv-python sklearn', (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Error during pip install: ${error.message}`);
-    // Handle the error appropriately
-  } else {
-    console.log('opencv-python installed successfully');
 
     // Proceed with your existing code
     const options = {
@@ -203,8 +218,7 @@ exec('pip install opencv-python sklearn', (error, stdout, stderr) => {
             }
           });
   
-  }
-});
+
         }
       }
 
