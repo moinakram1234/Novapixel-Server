@@ -7,3 +7,4 @@ PIL
 scikit-learn
 base64
 requests
+tensorflow
