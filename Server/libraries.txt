@@ -1,6 +1,6 @@
+opencv-python
 json
 time
-opencv-python
 numpy
 os
 csv
